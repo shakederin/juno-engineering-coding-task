@@ -1,13 +1,16 @@
 ////////////////////////////////////////////// Helper code, do not edit /////////////////////////////////////////
-import { allIds, fetchOrderById } from "../api";
+import { allIds, fetchOrderById } from "../api/index.js";
 
 ////////////////////////////////// Your code tasks is below //////////////////////////////////////////////////////
 
-const fetchAllOrders = () => {
+const fetchAllOrders = async () => {
     const ids = allIds;
-    // .....
-    //   1. TODO: fetch all ids using the "fetchOrderById" and the given ids, make it work as efficient and clean as possible.
+    const AllOrders = ids.map((id)=>{
+        return fetchOrderById(id);
+    })
+    return Promise.all(AllOrders)
 };
+
 
 const bucketOrdersByUsers = () => {
     let ordersByUsers = {};
@@ -27,8 +30,10 @@ const bucketOrdersByDate = () => {
     return ordersByDate;
 };
 
-fetchAllOrders();
-// .then(console.log);
+(async()=> {
+    const allOrders = await fetchAllOrders()
+    console.log(allOrders)
+})();
 
 bucketOrdersByUsers();
 // .then(console.log);
