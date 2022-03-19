@@ -3,16 +3,16 @@ import { allIds, fetchOrderById } from "../api/index.js";
 
 ////////////////////////////////// Your code tasks is below //////////////////////////////////////////////////////
 
-const fetchAllOrders = async () => {
+export const fetchAllOrders = async () => {
     const ids = allIds;
+    console.log(ids.length)
     const AllOrders = ids.map((id)=>{
         return fetchOrderById(id);
     })
     return Promise.all(AllOrders)
 };
 
-
-const bucketOrdersByUsers = async () => {
+export const bucketOrdersByUsers = async () => {
     const ordersByUsers = {};
     const allOrders = await fetchAllOrders();
     allOrders.forEach((Order)=>{
@@ -25,7 +25,7 @@ const bucketOrdersByUsers = async () => {
     return ordersByUsers;
 };
 
-const getLast2WeeksOrders = async () => {
+export const getLast2WeeksOrders = async () => {
     const lastTwoWeekOrders = [];
     const currentTime = new Date();
     currentTime.setDate(currentTime.getDate()-14);
@@ -38,7 +38,7 @@ const getLast2WeeksOrders = async () => {
     return lastTwoWeekOrders;
 };
 
-const bucketOrdersByDate = async () => {
+export const bucketOrdersByDate = async () => {
     const ordersByDate = {};
     const allOrders = await fetchAllOrders();
     allOrders.map((order)=>{
@@ -70,9 +70,9 @@ const bucketOrdersByDate = async () => {
 // })();
 
 
-(async()=> {
-        const ordersByUsers = await bucketOrdersByDate()
-        console.log(ordersByUsers)
-    })();
+// (async()=> {
+//         const ordersByUsers = await bucketOrdersByDate()
+//         console.log(ordersByUsers)
+//     })();
 
 ////////////////////////////////////////
