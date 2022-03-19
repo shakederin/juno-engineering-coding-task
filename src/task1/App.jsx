@@ -1,7 +1,5 @@
-import logo from '../logo.svg';
-import './App.css';
-import ImageCarousel from "./ImageCarousel";
-
+import ImageCarousel from "./components/ImageCarousel";
+import "./styles.css"
 function App() {
   return (
       <div>
