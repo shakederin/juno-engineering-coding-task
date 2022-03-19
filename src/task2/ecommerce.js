@@ -12,10 +12,16 @@ const fetchAllOrders = async () => {
 };
 
 
-const bucketOrdersByUsers = () => {
-    let ordersByUsers = {};
-    //   2. TODO: using the function from section 1 you should now bucket the orders by user.
-    // each key in the object (ordersByUsers) represents a userId and each value is an array of the orders of that user.
+const bucketOrdersByUsers = async () => {
+    const ordersByUsers = {};
+    const allOrders = await fetchAllOrders();
+    allOrders.forEach((Order)=>{
+        if(ordersByUsers.hasOwnProperty(Order.userId)){
+            ordersByUsers[Order.userId].push(Order)
+        }else{
+            ordersByUsers[Order.userId] = [Order]
+        }
+    })
     return ordersByUsers;
 };
 
@@ -30,13 +36,16 @@ const bucketOrdersByDate = () => {
     return ordersByDate;
 };
 
+// (async()=> {
+//     const allOrders = await fetchAllOrders()
+//     console.log(allOrders)
+// })();
+
 (async()=> {
-    const allOrders = await fetchAllOrders()
-    console.log(allOrders)
+    const ordersByUsers = await bucketOrdersByUsers()
+    console.log(ordersByUsers)
 })();
 
-bucketOrdersByUsers();
-// .then(console.log);
 
 getLast2WeeksOrders();
 // .then(console.log);
