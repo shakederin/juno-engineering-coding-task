@@ -61,11 +61,9 @@ const ImageCarousel = () => {
                 Image Gallery
             </h1>
             <div className="container">
-                {/* <button onClick={scrollLeft}>left</button> */}
                 <ChevronLeftIcon onClick={scrollLeft}/>
                 <div className="loadingElement" ref={loadingElement}></div> 
                 <img ref={imgElement} className="img" onLoad={onImgLoaded} src={currentImg.url}/>
-                {/* <button onClick={scrollRight}>right</button> */}
                 <ChevronRightIcon onClick={scrollRight} />
             </div>
         </div>
