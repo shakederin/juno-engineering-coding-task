@@ -25,8 +25,17 @@ const bucketOrdersByUsers = async () => {
     return ordersByUsers;
 };
 
-const getLast2WeeksOrders = () => {
-    //   3. TODO: fetch all Ids and return array with only the last 2 weeks orders. make it work as efficient and clean as possible.
+const getLast2WeeksOrders = async () => {
+    const lastTwoWeekOrders = [];
+    const currentTime = new Date();
+    currentTime.setDate(currentTime.getDate()-14);
+    const allOrders = await fetchAllOrders();
+    allOrders.map((order)=>{
+        if(new Date(order.timestamp) > currentTime){
+            lastTwoWeekOrders.push(order);
+        }
+    })
+    return lastTwoWeekOrders;
 };
 
 const bucketOrdersByDate = () => {
@@ -41,14 +50,17 @@ const bucketOrdersByDate = () => {
 //     console.log(allOrders)
 // })();
 
+// (async()=> {
+//     const ordersByUsers = await bucketOrdersByUsers()
+//     console.log(ordersByUsers)
+// })();
+
+
 (async()=> {
-    const ordersByUsers = await bucketOrdersByUsers()
+    const ordersByUsers = await getLast2WeeksOrders()
     console.log(ordersByUsers)
 })();
 
-
-getLast2WeeksOrders();
-// .then(console.log);
 
 bucketOrdersByDate();
 // .then(console.log);
